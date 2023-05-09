@@ -40,18 +40,19 @@ def getVideo(videoUrl, chatId):
     return True
 
 def downloadedVideo(chatId):
-    path = f"{VIDEO_FOLDER}/{chatId}"
-    files = os.listdir(path)
-    videoFiles = [f for f in files if f.endswith(".mp4")]
+    videoPath = f"{VIDEO_FOLDER}/{chatId}"
+    files = os.listdir(videoPath)
     videoStreams = []
 
-    for videoFile in videoFiles:
-        filePath = os.path.join(path, videoFile)
-        with open(filePath, "rb") as filePointer:
-            videoData = filePointer.read()
-            videoStream = io.BytesIO(videoData)
-            videoStream.name = videoFile
-            videoStreams.append(videoStream)
+    for videoFile in files:
+        filePath = os.path.join(videoPath, videoFile)
+
+        if videoFile.endswith(".mp4"):
+            with open(filePath, "rb") as filePointer:
+                videoData = filePointer.read()
+                videoStream = io.BytesIO(videoData)
+                videoStream.name = videoFile
+                videoStreams.append(videoStream)
 
         os.remove(filePath)
 

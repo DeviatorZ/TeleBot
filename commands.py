@@ -52,8 +52,7 @@ async def videoCommand(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=chatId, text="Getting video...")
     gotVideo = getVideo(videoUrl, chatId)
     if not gotVideo:
-        await context.bot.send_message(chat_id=chatId, text="Something went wrong when trying to download!")
-        return  
+        await context.bot.send_message(chat_id=chatId, text="Something went wrong during download!")
 
     downloaded = downloadedVideo(chatId)
     if len(downloaded) > 0:
